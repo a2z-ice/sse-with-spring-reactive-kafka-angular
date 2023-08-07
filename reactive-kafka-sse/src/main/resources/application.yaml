@@ -1,0 +1,11 @@
+server:
+  port: 4439
+  servlet:
+    context-path: /api
+
+
+kafka:
+  bootstrap:
+    servers: localhost:9092
+  consumer:
+    auto-offset-reset: earliest
