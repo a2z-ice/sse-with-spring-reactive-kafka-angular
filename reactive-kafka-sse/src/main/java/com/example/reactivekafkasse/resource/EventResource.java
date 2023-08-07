@@ -21,8 +21,6 @@ public class EventResource {
     {
         return eventConsumer
                 .get(userId)
-                .filter(employeeServerSentEvent -> employeeServerSentEvent.data().getId()
-                        .equals(userId))
                 ;
     }
 
