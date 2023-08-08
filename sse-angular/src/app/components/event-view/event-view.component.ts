@@ -14,20 +14,21 @@ export class EventViewComponent implements OnInit, OnDestroy {
   messages!: any[];
   sub!: Subscription;
 
-  // @Input() userId!:string;
-  userId!:string;
+  @Input() userId!:string;
 
   constructor(private zone: NgZone
-    , private http: HttpClient
-    , private readonly route: ActivatedRoute
+    // , private http: HttpClient
+    // , private readonly route: ActivatedRoute
     ) {
 
-      this.userId = this.route.snapshot.paramMap.get('userId') ?? '';
+      // this.userId = this.route.snapshot.paramMap.get('userId') ?? '';
   }
 
   getMessages(): Observable<any> {
 
     if(!this.userId) this.addMessage('User Id Not Provided')
+
+    console.log(this.userId)
 
     return Observable.create(
       (observer:any) => {
