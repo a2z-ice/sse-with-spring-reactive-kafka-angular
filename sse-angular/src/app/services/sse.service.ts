@@ -19,7 +19,7 @@ export class SseService {
         this.zone.run(() => {
         observer.next({
           lastEventId: event.lastEventId,
-          data: JSON.parse(event.data)
+          data: JSON.parse(event.data) //expecting json data
         });
       })
       };

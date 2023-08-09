@@ -16,12 +16,10 @@ public class EventResource {
 
     private final EventConsumer eventConsumer;
 
-    @GetMapping(path = "/events/{userId}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public Flux<ServerSentEvent<Employee>> getEvents(@PathVariable("userId") String userId)
+    @GetMapping(path = "/events/{employeeId}/{eventId}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public Flux<ServerSentEvent<Employee>> getEvents(@PathVariable("employeeId") String employeeId, @PathVariable("eventId") String eventId)
     {
-        return eventConsumer
-                .get(userId)
-                ;
+        return eventConsumer.get(employeeId, eventId);
     }
 
 }
