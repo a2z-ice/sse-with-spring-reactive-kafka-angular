@@ -2,6 +2,7 @@ import { Component, Input, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { SseService } from 'src/app/services/sse.service';
 
 @Component({
   selector: 'app-event-view',
@@ -14,9 +15,9 @@ export class EventViewComponent implements OnInit, OnDestroy {
   messages!: any[];
   sub!: Subscription;
 
-  @Input() userId!:string;
+  @Input() id!:string;
 
-  constructor(private zone: NgZone
+  constructor(private readonly sseService: SseService
     // , private http: HttpClient
     // , private readonly route: ActivatedRoute
     ) {
@@ -26,28 +27,11 @@ export class EventViewComponent implements OnInit, OnDestroy {
 
   getMessages(): Observable<any> {
 
-    if(!this.userId) this.addMessage('User Id Not Provided')
+    if(!this.id) this.addMessage('Id Not Provided')
 
-    console.log(this.userId)
+    console.log(this.id);
 
-    return Observable.create(
-      (observer:any) => {
-
-        let source = new EventSource(`http://localhost:4439/events/${this.userId}`);
-        source.onmessage = event => {
-          this.zone.run(() => {
-            observer.next(event.lastEventId)
-            observer.next(event.data)
-          })
-        }
-
-        source.onerror = event => {
-          this.zone.run(() => {
-            observer.error(event)
-          })
-        }
-      }
-    )
+    return this.sseService.connectToSseStream(`http://localhost:4439/events/${this.id}`);
   }
 
   ngOnInit(): void {

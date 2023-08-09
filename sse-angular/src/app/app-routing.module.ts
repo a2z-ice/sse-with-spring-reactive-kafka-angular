@@ -8,7 +8,7 @@ const routes: Routes = [
     , component: EventViewComponent
   },
   {
-    path: ':userId',
+    path: ':id',
     component: EventViewComponent
   },
 ];
