@@ -24,7 +24,9 @@ export class EventViewComponent implements OnInit, OnDestroy {
 
     console.log(this.id);
 
-    return this.sseService.connectToSseStream(`http://localhost:4439/events/${this.id}/${uuidv4()}`);
+    const eventId = uuidv4();
+    console.log(eventId)
+    return this.sseService.connectToSseStream(`http://localhost:4439/events/${this.id}/${eventId}}`);
   }
 
   ngOnInit(): void {
